@@ -1,0 +1,1 @@
+export type ErrosTypes = string | null | unknown;
