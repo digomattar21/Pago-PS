@@ -7,7 +7,7 @@ import { PrismaClient } from '@prisma/client';
 import { UserUseCase } from '../../useCases/UserUseCase';
 import { PostUseCase } from '../../useCases/PostUseCase';
 
-container.register<IPostRepository>('PostRepository',{ useClass:PostRepository } );
+container.register<IPostRepository>('PostRepository',{ useClass:PostRepository });
 container.register<IUserRepository>('UserRepository', { useClass:UserRepository });
 container.register('UserUseCase',{ useClass:UserUseCase });
 container.register('PostUseCase',{ useClass:PostUseCase });

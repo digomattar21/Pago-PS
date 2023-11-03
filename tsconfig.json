@@ -5,7 +5,8 @@
     "emitDecoratorMetadata": true,
     "moduleResolution": "node",
     "outDir": "./dist",
-    "esModuleInterop": true
+    "esModuleInterop": true,
+    "module": "ESNext",
   },
   "include": ["src/**/*.ts"],
   "exclude": ["node_modules"]

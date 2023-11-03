@@ -1,4 +1,5 @@
 import { User } from '@prisma/client';
+import * as yup from 'yup';
 import { IUserRepository } from '../repository/userRepository/IUserRepository';
 import { ResponseApiOnSucessOrErrorType } from '../types/response_type';
 import { ErrosTypes } from '../config/utils/errorTypes';
@@ -21,6 +22,10 @@ export class UserUseCase {
       const newUser = await this.userRepository.createUser(user);
       return this.response.created<User,null>(newUser, null);
     } catch (error) {
+      if (error instanceof yup.ValidationError) {
+        const validationErrors:string[] = error.errors;
+        return this.response.badRequest<null, string[]>(validationErrors);
+      }
       return this.response.error<ErrosTypes>(error);
     }
   }
@@ -30,7 +35,7 @@ export class UserUseCase {
       if (!userFound) {
         return this.response.notFound<null,string>('Usuário não encontrado');
       }
-      return this.response.created<User,null>(userFound, null);
+      return this.response.success<User,null>(userFound, null);
     } catch (error) {
       return this.response.error<ErrosTypes>(error);
     }
@@ -46,6 +51,10 @@ export class UserUseCase {
       }
       return this.response.success<User,null>(updateUser, null);
     } catch (error) {
+      if (error instanceof yup.ValidationError) {
+        const validationErrors:string[] = error.errors;
+        return this.response.badRequest<null, string[]>(validationErrors);
+      }
       return this.response.error<ErrosTypes>(error);
     }
   }

@@ -19,7 +19,10 @@ export class InMemoryUserRepository implements IUserRepository {
   }
   
   async deleteUser(id: number): Promise<void> {
-    this.users.find(User => User.id === id);
-    this.users.pop();
+    const deletedUser = this.users.find(post => post.id === id);
+    if (!deletedUser) {
+      return null;
+    }
+    return;
   }
 }
