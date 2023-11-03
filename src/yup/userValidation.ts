@@ -15,8 +15,8 @@ export const validateUser = {
   update: async  (payload:User) => {
     try {
       await yup.object().shape({
-        email: yup.string().email(),
-        name: yup.string(),
+        email: yup.string().email().test('email', 'Email is required', (value) => typeof value === 'string'),
+        name: yup.string().test('name', 'Name is required', (value) => typeof value === 'string'),
       }).validate(payload, { abortEarly: false });
     } catch (error:any) {
       throw new yup.ValidationError(error.errors, payload, 'validateUpdateUser');
