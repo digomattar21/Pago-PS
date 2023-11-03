@@ -25,7 +25,7 @@ export class PostUseCase {
     } catch (error) {
       if (error instanceof yup.ValidationError) {
         const validationErrors:string[] = error.errors;
-        console.log('validationErrors',validationErrors);
+        
         return this.response.badRequest<null, string[]>(validationErrors);
       }
       return this.response.error<ErrosTypes>(error);

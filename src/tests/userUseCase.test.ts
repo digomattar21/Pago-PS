@@ -80,7 +80,6 @@ describe('UserUseCase', () => {
     it('should return an error if the payload is incorrect during updated', async () => {
       
       const updateUser = await userUseCase.updateUser(incorrectUser as unknown as User);
-      console.log('updateUser',updateUser);
     
       expect(updateUser).toEqual(responseOn.badRequest<null, string[]>(updateUser.error as unknown as string[]));
     });
@@ -107,10 +106,9 @@ describe('UserUseCase', () => {
   
     it('should return an error when attempting to delete as it cannot locate the user', async () => {
   
-      const usercreated = await userRepository.createUser(user);
-      console.log('usercreated',usercreated);
+      await userRepository.createUser(user);
+      
       const deleteUser = await userUseCase.deleteUserById(2);
-      console.log('deleteUser',deleteUser);
   
       expect(deleteUser).toEqual(responseOn.notFound<null,string>(deleteUser.error as unknown as string));
     });

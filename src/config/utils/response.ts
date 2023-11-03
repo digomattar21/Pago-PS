@@ -43,7 +43,7 @@ export default class ResponseOnSucessOrError {
       status: true,
       data: null,
       error: err,
-      codeHttp: 404,
+      codeHttp: 400,
     };
   }
 

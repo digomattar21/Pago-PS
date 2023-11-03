@@ -4,7 +4,7 @@ import { Post } from '@prisma/client';
 import ResponseOnSucessOrError from '../config/utils/response';
 import { PostUseCase } from '../useCases/PostUseCase';
 
-const post = {
+const post:Post = {
   id: 1,
   title: 'Test Post',
   content: 'This is a test post',
@@ -85,7 +85,6 @@ describe('PostUseCase', () => {
     it('should return an error if the payload is incorrect during updated', async () => {
       
       const updatePost = await postUseCase.updatePost(incorrectPost as unknown as Post);
-      console.log('updatePost',updatePost);
     
       expect(updatePost).toEqual(responseOn.badRequest<null, string[]>(updatePost.error as unknown as string[]));
     });
@@ -112,10 +111,9 @@ describe('PostUseCase', () => {
   
     it('should return an error when attempting to delete as it cannot locate the post', async () => {
   
-      const postcreated = await postRepository.createPost(post);
-      console.log('postcreated',postcreated);
+      await postRepository.createPost(post);
+
       const deletePost = await postUseCase.deletePostById(2);
-      console.log('deletePost',deletePost);
   
       expect(deletePost).toEqual(responseOn.notFound<null,string>(deletePost.error as unknown as string));
     });
